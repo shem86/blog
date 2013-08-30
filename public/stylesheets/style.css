@@ -2,7 +2,6 @@ body {
   font-family: "Helvetica Neue", "Lucida Grande", "Arial";
   font-size: 13px;
   text-align: center;
-  text-stroke: 1px rgba(255,255,255,0.1);
   color: #555;
 }
 h1,
@@ -50,4 +49,31 @@ h1 {
 .article textarea {
   width: 490px;
   height: 90px;
+}
+form span {
+  vertical-align: top;
+}
+.article .body {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 5px;
+  background: #fed;
+  border: 1px solid #aef;
+  border-radius: 6px;
+}
+.comment {
+  max-width: 300px;
+  margin: 15px auto;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px 1px #ebb;
+}
+.comment .person,
+.comment .comment-body {
+  font-style: italic;
+}
+.comment span {
+  text-decoration: underline;
+  font-style: normal;
 }
