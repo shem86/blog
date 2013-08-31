@@ -1,8 +1,14 @@
+@import 'nib'
+@import 'nib/reset'
+
+html
+  height 100%
 body
+  height 100%
   font-family "Helvetica Neue", "Lucida Grande", "Arial"
   font-size 13px
-  text-align center
   color #555
+  background: linear-gradient(-45deg,  #ffffff 0%,#f6f6f6 47%,#ededed 100%)
 h1, h2
   margin 0
   font-size 22px
@@ -10,6 +16,10 @@ h1, h2
 h1
   text-shadow 1px 2px 2px #ddd
   font-size 60px
+  text-align center
+.inner
+  margin 0 auto
+  width 1024px
 #articles
   text-align left
   margin-left auto
@@ -17,8 +27,11 @@ h1
   width 320px
   .article
     margin 20px
+    border 1px solid whitesmoke
+    padding 10px
+    background #dff
     .created_at
-        display none
+
     .title
         font-weight bold
         text-decoration underline
@@ -27,7 +40,8 @@ h1
         background-color #ffa
 .article
   .created_at
-    display none
+  .title
+    text-align: center;
   input[type =text]
     width 490px
     margin-left 16px
@@ -37,13 +51,17 @@ h1
   textarea
     width 490px
     height 90px
+    margin-left: 16px;
 form
-  span
+  label
     vertical-align: top;
+  div
+    margin: 0 auto;
+    width: 500px;
 .article
   .body
     max-width: 500px;
-    margin: 30px auto;
+    margin: 2px auto;
     padding: 5px;
     background: #fed;
     border: 1px solid #aef;

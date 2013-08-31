@@ -10,6 +10,8 @@ var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
+var moment = require('moment');
+var _DATEFORMAT = "dddd, MMMM Do YYYY, h:mm:ss a";
 
 
 ArticleProvider = function(host, port) {
@@ -61,10 +63,10 @@ ArticleProvider.prototype.save = function(articles, callback) {
 
             for( var i = 0, article;i< articles.length;i++ ) {
                 article = articles[i];
-                article.created_at = new Date();
+                article.created_at = moment().format(_DATEFORMAT);
                 if( article.comments === undefined ) article.comments = [];
                 for(var j =0;j< article.comments.length; j++) {
-                    article.comments[j].created_at = new Date();
+                    article.comments[j].created_at = moment().format(_DATEFORMAT);
                 }
             }
 
@@ -79,7 +81,7 @@ ArticleProvider.prototype.saveComment = function(articleId, comment, callback) {
     this.getCollection(function(error, article_collection) {
         if( error ) callback(error)
         else {
-            comment.created_at = new Date();
+            comment.created_at = moment().format(_DATEFORMAT);
             article_collection.update({
                 _id: article_collection.db.bson_serializer.ObjectID.createFromHexString(articleId)}, {
                 $push: { comments: comment }

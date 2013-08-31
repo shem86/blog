@@ -7,9 +7,17 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var ArticleProvider = require('./article-provider-mongodb').ArticleProvider;
+var stylus = require('stylus');
+var nib = require('nib');
 
 var app = express();
 
+function compile(str, path) {
+    return stylus(str)
+        .set('filename', path)
+        .set('compress', true)
+        .use(nib());
+}
 
 // all environments
 app.configure('development', function () {
@@ -26,7 +34,11 @@ app.configure('development', function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(require('stylus').middleware(__dirname + '/public'));
+    app.use(stylus.middleware({
+            src: __dirname + '/public',
+            compile: compile
+        })
+    );
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
