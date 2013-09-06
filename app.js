@@ -8,7 +8,7 @@ var http = require('http');
 var path = require('path');
 var ArticleProvider = require('./article-provider-mongodb').ArticleProvider;
 var stylus = require('stylus');
-//var nib = require('nib');
+var nib = require('nib');
 
 var app = express();
 
@@ -20,7 +20,7 @@ function compile(str, path) {
 }
 
 // all environments
-app.configure('production', function () {
+app.configure('development', function () {
     app.set('port', process.env.PORT || 5000);
     app.set('views', __dirname + '/views');
 
@@ -42,7 +42,7 @@ app.configure('production', function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('production', function(){
+app.configure('development', function(){
     app.use(express.errorHandler());
 });
 
@@ -91,4 +91,4 @@ app.post('/blog/addComment', function(req, res){
     });
 });
 
-app.listen(3000);
+app.listen(5000);
