@@ -20,7 +20,7 @@ function compile(str, path) {
 }
 
 // all environments
-app.configure('development', function () {
+app.configure('production', function () {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
 
