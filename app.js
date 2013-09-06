@@ -21,7 +21,7 @@ function compile(str, path) {
 
 // all environments
 app.configure('production', function () {
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || 5000);
     app.set('views', __dirname + '/views');
 
     app.set('view engine', 'jade');
