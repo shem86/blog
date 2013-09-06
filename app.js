@@ -8,7 +8,7 @@ var http = require('http');
 var path = require('path');
 var ArticleProvider = require('./article-provider-mongodb').ArticleProvider;
 var stylus = require('stylus');
-var nib = require('nib');
+//var nib = require('nib');
 
 var app = express();
 
@@ -42,7 +42,7 @@ app.configure('production', function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
+app.configure('production', function(){
     app.use(express.errorHandler());
 });
 
