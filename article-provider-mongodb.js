@@ -24,8 +24,8 @@ var mongoUri = process.env.MONGOLAB_URI ||
 ArticleProvider = function(host, port) {
     var self = this;
     var mongoClient = new MongoClient(new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-    mongoClient.open(function(err, mongoClient) {
-        self.db = mongoClient.db("blogdb");
+    mongoClient.connect(mongoUri ,function(err, db) {
+        self.db = db;
     });
 
 };
