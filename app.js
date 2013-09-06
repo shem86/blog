@@ -20,7 +20,7 @@ function compile(str, path) {
 }
 
 // all environments
-app.configure('development', function () {
+app.configure(process.env.NODE_ENV, function () {
     app.set('port', process.env.PORT || 5000);
     app.set('views', __dirname + '/views');
 
@@ -91,4 +91,4 @@ app.post('/blog/addComment', function(req, res){
     });
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);

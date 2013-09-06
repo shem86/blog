@@ -5,23 +5,29 @@
  * Time: 9:47 PM
  * To change this template use File | Settings | File Templates.
  */
-var Db = require('mongodb').Db;
+//var Db = require('mongodb').Db;
+var MongoClient = require('mongodb').MongoClient;
 var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 var moment = require('moment');
+
+
 var _DATEFORMAT = "dddd, MMMM Do YYYY, h:mm:ss a";
+
 
 var mongoUri = process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
-    'blogdb';
+    'mongodb://localhost/blogdb';
 
 ArticleProvider = function(host, port) {
-    this.db= new Db(mongoUri, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-    this.db.open(function(err, db) {
-
+    var self = this;
+    var mongoClient = new MongoClient(new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
+    mongoClient.open(function(err, mongoClient) {
+        self.db = mongoClient.db("blogdb");
     });
+
 };
 
 
