@@ -13,9 +13,12 @@ var ObjectID = require('mongodb').ObjectID;
 var moment = require('moment');
 var _DATEFORMAT = "dddd, MMMM Do YYYY, h:mm:ss a";
 
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'blogdb';
 
 ArticleProvider = function(host, port) {
-    this.db= new Db('blogdb', new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
+    this.db= new Db(mongoUri, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
     this.db.open(function(err, db) {
 
     });
