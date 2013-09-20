@@ -1,5 +1,5 @@
 /* The API controller
- Exports 3 methods:
+ Exports following methods:
  * post - Creates a new post
  * postComment - Creates a new comment in post
  * getAll - Get All posts
