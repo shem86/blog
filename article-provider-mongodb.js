@@ -6,13 +6,14 @@
  * To change this template use File | Settings | File Templates.
  */
 //var Db = require('mongodb').Db;
-var MongoClient = require('mongodb').MongoClient;
-var Connection = require('mongodb').Connection;
-var Server = require('mongodb').Server;
-var BSON = require('mongodb').BSON;
-var ObjectID = require('mongodb').ObjectID;
+//var MongoClient = require('mongodb').MongoClient;
+//var Connection = require('mongodb').Connection;
+//var Server = require('mongodb').Server;
+//var BSON = require('mongodb').BSON;
+//var ObjectID = require('mongodb').ObjectID;
 var moment = require('moment');
-
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var _DATEFORMAT = "dddd, MMMM Do YYYY, h:mm:ss a";
 
@@ -20,6 +21,18 @@ var _DATEFORMAT = "dddd, MMMM Do YYYY, h:mm:ss a";
 var mongoUri = process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
     'mongodb://localhost/blogdb';
+
+
+mongoose.connect('mongodb://localhost/blogdb');
+
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    // yay!
+});
+
+
 
 ArticleProvider = function(host, port) {
     var self = this;

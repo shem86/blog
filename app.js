@@ -4,91 +4,46 @@
  */
 
 var express = require('express');
-var http = require('http');
 var path = require('path');
-var ArticleProvider = require('./article-provider-mongodb').ArticleProvider;
-var stylus = require('stylus');
-var nib = require('nib');
-
 var app = express();
+var mongoose = require('mongoose');
 
-function compile(str, path) {
-    return stylus(str)
-        .set('filename', path)
-        .set('compress', true)
-        .use(nib());
-}
+mongoose.connect('mongodb://localhost/blogdb');
 
 // all environments
-app.configure(process.env.NODE_ENV, function () {
-    app.set('port', process.env.PORT || 5000);
-    app.set('views', __dirname + '/views');
+app.set('port', process.env.PORT || 5000);
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.set('views', __dirname + '/views');
+app.engine('html', require('jade').__express);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.errorHandler());
 
-    app.set('view engine', 'jade');
+// set up the RESTful API, handler methods are defined in api.js
+var api = require('./controllers/api.js');
 
-    app.set('view options', {
-        layout: false
-    });
-    app.use(express.favicon());
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(stylus.middleware({
-            src: __dirname + '/public',
-            compile: compile
-        })
-    );
-    app.use(express.static(path.join(__dirname, 'public')));
-});
+//RESTful
+app.post('/articles', api.post);
 
-app.configure('development', function(){
-    app.use(express.errorHandler());
-});
+app.post('/articles/:id/postComment', api.postComment);
 
-var articleProvider= new ArticleProvider('localhost', 27017);
+app.get('/articles', api.getAll);
 
 //routes
-app.get('/', function(req, res){
-    articleProvider.findAll(function(error, docs){
-        res.render('index', {
-            title: 'Blog',
-            articles:docs
-        });
-    });
+app.get('/articles/:id', api.articleById);
+
+app.get('/', api.showAll);
+
+app.get('/testREST', function(req, res){
+    res.render('index.jade');
 });
-app.get('/blog/new', function(req, res) {
-    res.render('blog_new', {
+
+app.get('/new', function(req, res) {
+    res.render('blog_new.jade', {
         title: 'New Post'
     });
 });
 
-app.get('/blog/:id', function(req, res) {
-    articleProvider.findById(req.param('id'), function(error, article){
-        res.render('blog_show', {
-                title: article.title,
-                article:article
-        });
-    });
-});
-
-app.post('/blog/new', function(req, res){
-    articleProvider.save({
-        title: req.param('title'),
-        body: req.param('body')
-    }, function( error, docs) {
-        res.redirect('/')
-    });
-});
-
-
-app.post('/blog/addComment', function(req, res){
-    articleProvider.saveComment(req.param('_id'),{
-            'person': req.param('person'),
-            'comment': req.param('comment')
-    }, function( error, articleId) {
-        res.redirect('/blog/' + articleId);
-    });
-});
-
 app.listen(process.env.PORT || 5000);
+console.log(process.env.PORT || 5000);

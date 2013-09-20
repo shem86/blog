@@ -3,7 +3,7 @@ extends layout
 block mainContent
     h1= title
     div.article
-        div.created_at Created at: #{article.created_at}
+        div.created_at Created at: #{article.date}
         div.title Title: #{article.title}
         div.body= article.body
         - each comment in article.comments
@@ -12,18 +12,20 @@ block mainContent
                   | Commenter:&nbsp;
                   span= comment.person
                 div.date Commented at:&nbsp;
-                  span.created_at= comment.created_at
+                  span.created_at= comment.date
                 div.comment-body
                   span says:
                   |  #{comment.comment}
         div
-            form( method="post", action="/blog/addComment")
-                input( type="hidden", name="_id", value=article._id.toHexString())
-                div
-                    label(for="addCommentPerson") Author :
-                    input( type="text", name="person", id="addCommentPerson")
-                div
-                    label(for="addCommentComment") Comment :
-                    textarea( name="comment", rows=5, id="addCommentComment")
-                div#editArticleSubmit
-                    input(type="submit", value="Send")
+        form( method="post", id="commentForm", action="/articles/"+article._id.toHexString()+"/postComment")
+            input( type="hidden", name="_id", value=article._id.toHexString())
+            div
+                label(for="addCommentPerson") Author :
+                input( type="text", name="person", id="addCommentPerson")
+            div
+                label(for="addCommentComment") Comment :
+                textarea( name="comment", rows=5, id="addCommentComment")
+            div#editArticleSubmit
+                input(type="submit", id="submitComment", value="Send")
+block scripts
+    script(src='/js/addComment.js')

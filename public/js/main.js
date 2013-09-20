@@ -1,5 +1,6 @@
 $(document).ready( function () {
-    setInterval( function() {
-        moment($(".created_at")[0].innerText, "ddd, MMM DD YYYY, HH:mm:ss");
-    }, 5000);
+    $.get( "/articles", function( data ) {
+        $( "#articles" ).html( data );
+        alert( "Load was performed." );
+    });
 });
