@@ -8,7 +8,11 @@ var path = require('path');
 var app = express();
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/blogdb');
+var mongoUri = process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/blogdb';
+
+mongoose.connect(mongoUri);
 
 // all environments
 app.set('port', process.env.PORT || 5000);
