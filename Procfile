@@ -1,1 +1,1 @@
-web: NODE_ENV=production MONGOLAB_URI=mongodb://heroku_app17965857:26p9lgr615iue6ogtupkjec08f@ds043398.mongolab.com:43398/heroku_app17965857 node app.js
+web: NODE_ENV=production MONGOLAB_URI=mongodb://heroku_app20151290:ll93g8vujglshjuq14dfhf23am@ds053808.mongolab.com:53808/heroku_app20151290 node app.js

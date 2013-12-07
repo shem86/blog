@@ -12,7 +12,13 @@ var mongoUri = process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
     'mongodb://localhost/blogdb';
 
-mongoose.connect(mongoUri);
+mongoose.connect(mongoUri, function (err, res) {
+    if (err) {
+        console.log ('ERROR connecting to: ' + mongoUri + '. ' + err);
+    } else {
+        console.log ('Succeeded connected to: ' + mongoUri);
+    }
+});
 
 // all environments
 app.set('port', process.env.PORT || 5000);
