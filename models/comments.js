@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var commentSchema = new Schema({
-    author: String,
-    body:   String,
+    person: String,
+    comment: String,
     date: { type: Date, default: Date.now },
     meta: {
         votes: Number
