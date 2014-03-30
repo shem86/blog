@@ -24,7 +24,7 @@ exports.post = function(req, res) {
         }
         res.send(article);
     });
-}
+};
 
 exports.postComment = function(req, res) {
     Articles.findOne({_id: req.params.id }, function (err, article) {
@@ -39,13 +39,13 @@ exports.postComment = function(req, res) {
             res.send(article);
         });
     });
-}
+};
 
 exports.getAll = function(req, res) {
     Articles.find(function(err, articles) {
         res.send(articles);
     });
-}
+};
 
 // first locates a thread by title, then locates the replies by thread ID.
 exports.show = (function(req, res) {
@@ -64,13 +64,14 @@ exports.articleById = function(req, res) {
             article: article
         });
     });
-}
+};
 
 exports.showAll = function(req, res, callback) {
     Articles.find(function(err, articles) {
-        res.render('all.jade', {
+        res.render('home.jade', {
             title: 'All Articles Bootstrapped',
+            description: 'With a nice bootstrap template ripoff :)',
             articles: articles
         });
     });
-}
+};

@@ -2,10 +2,20 @@ doctype html
 html(lang="en")
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/lib/bootstrap/css/twitter-bootstrap-3.0.0.min.css')
+        link(rel='stylesheet', href='/stylesheets/blog.css')
         script(src="http://code.jquery.com/jquery-2.0.3.min.js")
+        script(src="/lib/bootstrap/js/twitter-bootstrap-3.0.0.min.js")
         script(src="/js/moment.min.js")
     body
-        .inner
-          block mainContent
+        .blog-masthead
+            .container
+                nav.blog-nav
+                    a.blog-nav-item.active(href='/') Home
+                    a.blog-nav-item(href='/new') New Post
+                    a.blog-nav-item(href='#') Press
+                    a.blog-nav-item(href='#') New hires
+                    a.blog-nav-item(href='#') About
+
+        block mainContent
         block scripts

@@ -1,0 +1,29 @@
+extends layout
+
+block mainContent
+    .container
+        .blog-header
+            h1.blog-title= title
+            p.lead.blog-description= description
+        .row
+            .col-sm-8.blog-main
+                - each article in articles
+                    .blog-post
+                        h2.blog-post-title
+                            a(href="/articles/"+article._id)!= article.title
+                    .blog-post-meta Created at: #{article.date}
+                    p= article.body
+            .col-sm-3.col-sm-offset-1.blog-sidebar
+                .sidebar-module-inset
+                    h4 Stuff I learn through this experiment:
+                    ol.list-unstyled
+                        li
+                            a(href="http://nodejs.org/") nodejs
+                        li
+                            a(href="https://www.mongodb.org/") mongodb
+                        li
+                            a(href="http://mongoosejs.com/") mongoosejs
+                        li
+                            a(href="http://expressjs.com/") expressjs
+                        li
+                            a(href="http://gruntjs.com/") gruntjs
